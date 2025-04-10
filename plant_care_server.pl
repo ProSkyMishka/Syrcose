@@ -1,6 +1,7 @@
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_parameters)).
+:- use_module(library(http/http_unix_daemon)).
 :- use_module(library(http/http_json)).
 
 :- consult('plants.pl').
@@ -32,6 +33,10 @@ execute_with_output(Term, FinalOutput) :-
     ),
     (Output = "" -> FinalOutput = "true" ; FinalOutput = Output).
 
-% Start the server
 start_server :-
-    http_server(http_dispatch, [port(8080)]).
+    http_server(http_dispatch, [port(8080)]),
+    wait_forever.
+
+wait_forever :-
+    repeat,
+    sleep(60).
