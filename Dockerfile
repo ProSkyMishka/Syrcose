@@ -10,8 +10,8 @@ RUN useradd -ms /bin/bash prologuser234r
 
 USER prologuser234r
 
-COPY plant_care_server.pl /app/plant_care_server.pl
+COPY *.pl /app/
 
 WORKDIR /app
 
-CMD ["swipl", "-s", "plant_care_server.pl", "-g", "start_server"]
+CMD ["swipl", "-s", "plant_care_server.pl", "--", "--fork=false", "--debug=server"]
